@@ -1,0 +1,18 @@
+spring:
+  mvc:
+    servlet:
+      load-on-startup: 1
+  profiles:
+    active: dev  
+logging:
+  level:
+    root: INFO
+    com:
+      gzstrong:
+        core: DEBUG
+        repair: DEBUG
+    org:
+      springframework:
+        web: INFO
+  file: logs/${spring.application.name}.log
+

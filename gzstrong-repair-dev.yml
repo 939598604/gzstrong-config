@@ -1,0 +1,86 @@
+spring:
+  profiles:
+    active: dev
+  freemarker:
+    request-context-attribute: req  #在页面中，通过req变量访问request
+    suffix: .ftl #后缀名
+    content-type: text/html
+    enabled: true
+    template-loader-path: classpath:/templates/  #模板加载路径 按需配置
+    charset: utf-8
+    cache: false #缓存配置
+    prefer-file-system-access: false #不使用文件系统优先，而使用classpath下的资源文件优先，解决打jar包运行后，出现的异常问题
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    listener:
+      simple:
+        concurrency: 20
+        max-concurrency: 50
+  redis:
+    host: 192.168.197.27
+    port: 6379
+logging:
+  level:
+    root: INFO
+    com:
+      gzstrong:
+        core: DEBUG
+        repair: DEBUG
+    org:
+      springframework:
+        web: INFO
+  path: c:\\logs
+server:
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: utf-8
+#mybatis包扫描
+mybatis-plus:
+  typeAliasesPackage: com.gzstrong.repair,com.gzstrong.core.test,com.gzstrong.core.web
+#多数据源的开关(如果不开启设置，默认为单数据源)
+gzstrong:
+  datasource-type: mixture  #注 mixture:混合数据库或多个相同数据库(如mysql,sqlserver,oracle,postgresql)  single:单数据库(如单个mysql)
+  logger-storage: db #注 取值有memory,file,db,rabbitmq 其含义memory:(将日志存储到内存),file:(将日志存储到文件),db:(将日志存储到数据库)  rabbitmq:(日志存储放入到rabbitmq)
+  ftp:
+    server: 192.168.197.27
+    port: 21
+    name: strong
+    password: strong
+datasource:
+  mixture:
+    db1:
+      url: jdbc:mysql://127.0.0.1:3306/repair?characterEncoding=utf8
+      username: root
+      password: root
+    db2:
+      url: jdbc:sqlserver://192.168.181.169:1433;DatabaseName=dataupload
+      username: sa
+      password: gzbus@yy169
+    db3:
+      url: jdbc:oracle:thin:@192.168.197.12:1521:gzsc
+      username: scott
+      password: tiger
+    db4:
+      url: jdbc:postgresql://192.168.181.158:5432/ivms7200v
+      username: gzadmin
+      password: hik88075998
+  single:
+    url: jdbc:mysql://127.0.0.1:3306/repair?characterEncoding=utf8
+    username: root
+    password: root
+system:
+  session:
+    timeout: 3600000  #session过期时间,单位毫秒,1小时
+  cookie:
+    timeout: 604800  #session过期时间,单位秒,7天
+shiro:
+  cache:
+    prefix: "shiro-cache:"
+    expire: 30   #shiro缓存过期时间,分钟
+    session:
+      prefix: "shiro-cache:shiro-activeSessionCache:"

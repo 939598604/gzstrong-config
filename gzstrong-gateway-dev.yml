@@ -1,0 +1,48 @@
+spring:
+  mvc:
+    servlet:
+      load-on-startup: 1
+  profiles:
+    active: dev
+logging:
+  level:
+    root: info
+    com:
+      gzstrong: debug
+  file: logs/${spring.application.name}.log
+zuul:
+  ignored-services: '*'
+  sensitiveHeaders:
+  routes:
+    amqp:
+      path: /amqp/**
+      serviceId: gzstrong-amqp
+    auth:
+      path: /auth/**
+      serviceId: gzstrong-auth
+    mat:
+      path: /mat/**
+      serviceId: gzstrong-material
+    rep:
+      path: /rep/**
+      serviceId: gzstrong-repair
+    test:
+      path: /test/**
+      url: http://www.baidu.com
+  host:
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 60000
+  add-proxy-headers: true
+  ribbon:
+    eager-load:
+      enabled: true
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
