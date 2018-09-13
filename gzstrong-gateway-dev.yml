@@ -7,12 +7,9 @@ spring:
 logging:
   level:
     root: info
-<<<<<<< HEAD
     com:
       gzstrong: debug
-=======
     gzstrong: debug
->>>>>>> 97677c9bd8a053d9d95f600bd5f4456fddd90bd8
   file: logs/${spring.application.name}.log
 zuul:
   ignored-services: '*'
